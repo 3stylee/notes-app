@@ -6,7 +6,7 @@ const dbName = 'notes.db';
 const noteTable = 'note';
 const userTable = 'user';
 const createUserTable = '''
-      REATE TABLE IF NOT EXISTS user (
+      CREATE TABLE IF NOT EXISTS user (
       id    INTEGER PRIMARY KEY AUTOINCREMENT
                   NOT NULL,
       email TEXT    NOT NULL
