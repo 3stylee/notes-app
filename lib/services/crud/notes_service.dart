@@ -71,7 +71,6 @@ class NotesService {
     await _ensureDbIsOpen();
     final db = _getDatabaseOrThrow();
     final notes = await db.query(noteTable);
-
     return notes.map((noteRow) => DatabaseNote.fromRow(noteRow));
   }
 
@@ -106,7 +105,6 @@ class NotesService {
     const text = '';
     final notesID = await db.insert(noteTable, {
       userIDColumn: owner.id,
-      emailColumn: owner.email,
       textColumn: text,
     });
 
@@ -125,7 +123,7 @@ class NotesService {
     await _ensureDbIsOpen();
     final db = _getDatabaseOrThrow();
     final deletedCount = await db.delete(
-      userTable,
+      noteTable,
       where: 'id = ?',
       whereArgs: [id],
     );
@@ -196,7 +194,7 @@ class NotesService {
   }
 
   Future<void> open() async {
-    if (_db != null) throw DatabaseAlreadyOpenException;
+    if (_db != null) throw DatabaseAlreadyOpenException();
     try {
       final docsPath = await getApplicationDocumentsDirectory();
       final dbPath = join(docsPath.path, dbName);
@@ -213,6 +211,7 @@ class NotesService {
   Future<void> close() async {
     final db = _getDatabaseOrThrow();
     await db.close();
+    _db = null;
   }
 
   Future<void> _ensureDbIsOpen() async {
