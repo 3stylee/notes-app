@@ -18,7 +18,7 @@ class _VerifyEmailViewState extends State<VerifyEmailView> {
       body: Column(
         children: [
           const Text(
-              'We\'ve sent you an email verification, please verify your email addres'),
+              'We\'ve sent you an email verification, please verify your email address'),
           const Text(
               'If you haven\'t received a verification email yet, please click this button'),
           TextButton(
